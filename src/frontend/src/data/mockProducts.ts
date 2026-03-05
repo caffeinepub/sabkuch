@@ -4,7 +4,8 @@ export type Category =
   | "Home & Kitchen"
   | "Beauty"
   | "Sports"
-  | "Books";
+  | "Books"
+  | "Festivals";
 
 export interface MockProduct {
   id: string;
@@ -159,6 +160,104 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     reviews: 3287,
     discount: 43,
   },
+  // Ramzan Special Products
+  {
+    id: "mock-r1",
+    name: "Premium Ajwa Khajoor (Dates) 500g",
+    price: 299,
+    originalPrice: 499,
+    image: "/assets/generated/product-coffee.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.9,
+    reviews: 1243,
+    badge: "Ramzan Special",
+    discount: 40,
+  },
+  {
+    id: "mock-r2",
+    name: "Attar Itar Perfume Set (Rose & Musk)",
+    price: 399,
+    originalPrice: 699,
+    image: "/assets/generated/product-serum.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.7,
+    reviews: 876,
+    badge: "Ramzan Special",
+    discount: 43,
+  },
+  {
+    id: "mock-r3",
+    name: "Ramzan LED Decoration Lights",
+    price: 199,
+    originalPrice: 349,
+    image: "/assets/generated/product-tv.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.6,
+    reviews: 654,
+    badge: "Ramzan Special",
+    discount: 43,
+  },
+  {
+    id: "mock-r4",
+    name: "Seviyan Vermicelli Family Pack 1kg",
+    price: 99,
+    originalPrice: 149,
+    image: "/assets/generated/product-airfryer.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.5,
+    reviews: 432,
+    badge: "Ramzan Special",
+    discount: 34,
+  },
+  // Holi Special Products
+  {
+    id: "mock-h1",
+    name: "Herbal Holi Color Set (10 Colors)",
+    price: 199,
+    originalPrice: 399,
+    image: "/assets/generated/product-lipstick.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.8,
+    reviews: 2341,
+    badge: "Holi Special",
+    discount: 50,
+  },
+  {
+    id: "mock-h2",
+    name: "Big Pichkari Water Gun 60cm",
+    price: 299,
+    originalPrice: 499,
+    image: "/assets/generated/product-cricket.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.7,
+    reviews: 1876,
+    badge: "Holi Special",
+    discount: 40,
+  },
+  {
+    id: "mock-h3",
+    name: "Holi Special Mithai Sweets Box 500g",
+    price: 349,
+    originalPrice: 599,
+    image: "/assets/generated/product-coffee.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.6,
+    reviews: 765,
+    badge: "Holi Special",
+    discount: 42,
+  },
+  {
+    id: "mock-h4",
+    name: "Pure White Cotton Kurta for Holi",
+    price: 399,
+    originalPrice: 799,
+    image: "/assets/generated/product-jacket.dim_400x400.jpg",
+    category: "Festivals" as Category,
+    rating: 4.5,
+    reviews: 543,
+    badge: "Holi Special",
+    discount: 50,
+  },
 ];
 
 export const CATEGORIES: { name: Category; icon: string; color: string }[] = [
@@ -172,4 +271,5 @@ export const CATEGORIES: { name: Category; icon: string; color: string }[] = [
   { name: "Beauty", icon: "Sparkles", color: "from-fuchsia-500 to-pink-600" },
   { name: "Sports", icon: "Dumbbell", color: "from-green-500 to-emerald-600" },
   { name: "Books", icon: "BookOpen", color: "from-blue-500 to-cyan-600" },
+  { name: "Festivals", icon: "Star", color: "from-yellow-500 to-orange-500" },
 ];

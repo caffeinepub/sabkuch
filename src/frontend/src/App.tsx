@@ -27,6 +27,7 @@ import {
 import {
   BookOpen,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   Clock,
   Cpu,
@@ -68,6 +69,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Sparkles,
   Dumbbell,
   BookOpen,
+  Star,
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -458,6 +460,86 @@ function CartDrawer({
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+// ── Category Carousel ─────────────────────────────────────────────────────────
+interface CategoryCarouselProps {
+  category: Category;
+  products: MockProduct[];
+  onAddToCart: (id: string, name: string) => void;
+  addingId: string | null;
+}
+
+function CategoryCarousel({
+  category,
+  products,
+  onAddToCart,
+  addingId,
+}: CategoryCarouselProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: dir === "right" ? 280 : -280,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const filtered = products.filter((p) => p.category === category);
+  if (filtered.length === 0) return null;
+
+  const scopeId = category.toLowerCase().replace(/[^a-z0-9]/g, "_");
+
+  return (
+    <div className="mb-10">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-display font-bold text-xl text-foreground">
+          {category}{" "}
+          <span className="text-brand-orange text-sm font-body font-normal ml-2">
+            ({filtered.length} products)
+          </span>
+        </h3>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            data-ocid={`carousel.${scopeId}.prev`}
+            onClick={() => scroll("left")}
+            className="w-8 h-8 rounded-full border border-border bg-card hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-colors shadow-xs"
+            aria-label={`Scroll ${category} left`}
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            data-ocid={`carousel.${scopeId}.button`}
+            onClick={() => scroll("right")}
+            className="w-8 h-8 rounded-full border border-border bg-card hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-colors shadow-xs"
+            aria-label={`Scroll ${category} right`}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <div
+        ref={scrollRef}
+        className="flex gap-3 overflow-x-auto pb-3 scroll-smooth"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {filtered.map((product, i) => (
+          <div key={product.id} className="flex-shrink-0 w-48 sm:w-56">
+            <ProductCard
+              product={product}
+              index={i + 1}
+              onAddToCart={onAddToCart}
+              isAdding={addingId === product.id}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -1026,6 +1108,39 @@ export default function App() {
           </div>
         </section>
 
+        {/* ── CATEGORY CAROUSELS ───────────────────────────────────────── */}
+        <section className="py-10 bg-secondary/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-8">
+              <h2 className="font-display font-black text-3xl sm:text-4xl text-foreground">
+                Browse by <span className="text-gradient-brand">Category</span>
+              </h2>
+              <p className="text-muted-foreground mt-2 font-body">
+                Scroll through similar products in each category
+              </p>
+            </div>
+            {(
+              [
+                "Festivals",
+                "Electronics",
+                "Fashion",
+                "Home & Kitchen",
+                "Beauty",
+                "Sports",
+                "Books",
+              ] as Category[]
+            ).map((cat) => (
+              <CategoryCarousel
+                key={cat}
+                category={cat}
+                products={allProducts}
+                onAddToCart={handleAddToCart}
+                addingId={addingId}
+              />
+            ))}
+          </div>
+        </section>
+
         {/* ── PROMOTIONAL BANNER ───────────────────────────────────────── */}
         <section className="py-12 bg-secondary/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -1189,11 +1304,11 @@ export default function App() {
               </h4>
               <div className="space-y-3 mb-5">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918052932370"
                   className="flex items-center gap-2 text-background/70 hover:text-background text-sm font-body transition-colors"
                 >
                   <Phone className="w-4 h-4 text-brand-orange flex-shrink-0" />
-                  +91 98765 43210
+                  +91 80529 32370
                 </a>
                 <a
                   href="mailto:support@sabkuch.com"
@@ -1204,7 +1319,7 @@ export default function App() {
                 </a>
                 <div className="flex items-start gap-2 text-background/70 text-sm font-body">
                   <MapPin className="w-4 h-4 text-brand-orange flex-shrink-0 mt-0.5" />
-                  Mumbai, Maharashtra, India
+                  Uttar Pradesh, India
                 </div>
               </div>
               <div>
